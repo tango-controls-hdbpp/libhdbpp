@@ -1,7 +1,7 @@
 
 #OMNI_INC = /usr/local/omniorb-4.1.6/include
 #TANGO_INC = /usr/local/tango-8.1.2.c/include/tango
-include ../Make-hdb++.in
+include ../../Make-hdb++.in
 
 CFLAGS = -Wall -DRELEASE='"N$Name:  $ "' -I$(TANGO_INC) -I$(OMNI_INC)  -std=gnu++98 -D_MYSQL
 #CFLAGS = -Wall -DRELEASE='"N$Name:  $ "' -I$(TANGO_INC) -I$(OMNI_INC)  -std=gnu++0x -D_MYSQL
