@@ -1,8 +1,7 @@
 
 include ../../Make-hdb++.in
 
-#CFLAGS = -Wall -DRELEASE='"N$Name:  $ "' -I$(TANGO_INC) -I$(OMNI_INC)  -std=gnu++98
-CFLAGS = -Wall -DRELEASE='"N$Name:  $ "' -I$(TANGO_INC) -I$(OMNI_INC)  -std=gnu++0x
+CXXFLAGS += -Wall -DRELEASE='"N$Name:  $ "' -I$(TANGO_INC) -I$(OMNI_INC)
 CXX = g++
 
 
@@ -37,7 +36,7 @@ lib/LibHdb++: lib obj obj/LibHdb++.o
 	ar rcs lib/$(LIBRARY) obj/LibHdb++.o
 
 obj/LibHdb++.o: src/LibHdb++.cpp src/LibHdb++.h
-	$(CXX) $(CFLAGS) -fPIC -c src/LibHdb++.cpp -o $@
+	$(CXX) $(CXXFLAGS) -fPIC -c src/LibHdb++.cpp -o $@
 
 clean:
 	rm -f obj/*.o lib/*.so* lib/*.a
