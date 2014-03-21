@@ -72,9 +72,9 @@ HdbClient::HdbClient(string host, string user, string password, string dbname, i
 }
 #endif
 
-int HdbClient::insert_Attr(Tango::EventData *data)
+int HdbClient::insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type)
 {
-	return db->insert_Attr(data);
+	return db->insert_Attr(data, ev_data_type);
 }
 
 
