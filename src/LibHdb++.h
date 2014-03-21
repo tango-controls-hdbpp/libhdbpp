@@ -32,6 +32,26 @@
 #include <tango.h>
 #include <vector>
 
+typedef struct HdbEventDataType_
+{
+	string attr_name;
+	int max_dim_x;
+	int max_dim_y;
+	int data_type;
+	Tango::AttrDataFormat data_format;
+	int write_type;
+
+} HdbEventDataType;
+
+class  HdbCmdData
+{
+public:
+	HdbCmdData(Tango::EventData *ev_data_, HdbEventDataType ev_data_type_){ev_data=ev_data_; ev_data_type=ev_data_type_;};
+    ~HdbCmdData(){delete ev_data;};
+	Tango::EventData *ev_data;
+	HdbEventDataType ev_data_type;
+
+} ;
 
 class AbstractDB
 {
@@ -39,7 +59,7 @@ class AbstractDB
 public:
 
 
-	virtual int insert_Attr(Tango::EventData *data) = 0;
+	virtual int insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type) = 0;
 
 	virtual int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/) = 0;
 
@@ -78,7 +98,7 @@ public:
 	HdbClient(string host, string user, string password, string dbname, int port);
 #endif
 
-	int insert_Attr(Tango::EventData *data);
+	int insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type);
 
 	int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/);
 
