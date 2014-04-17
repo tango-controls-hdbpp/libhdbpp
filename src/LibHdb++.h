@@ -31,6 +31,12 @@
 
 #include <tango.h>
 #include <vector>
+#include <stdint.h>
+
+#define DB_INSERT		0
+#define DB_START		1
+#define DB_STOP			2
+#define DB_REMOVE		3
 
 typedef struct HdbEventDataType_
 {
@@ -46,10 +52,13 @@ typedef struct HdbEventDataType_
 class  HdbCmdData
 {
 public:
-	HdbCmdData(Tango::EventData *ev_data_, HdbEventDataType ev_data_type_){ev_data=ev_data_; ev_data_type=ev_data_type_;};
-    ~HdbCmdData(){delete ev_data;};
+	HdbCmdData(Tango::EventData *ev_data_, HdbEventDataType ev_data_type_){ev_data=ev_data_; ev_data_type=ev_data_type_; op_code=DB_INSERT;};
+	HdbCmdData(uint8_t op_code_, string attr_name_){op_code=op_code_; attr_name=attr_name_; ev_data=NULL;};
+    ~HdbCmdData(){if(ev_data) delete ev_data;};
 	Tango::EventData *ev_data;
 	HdbEventDataType ev_data_type;
+	uint8_t op_code;	//operation code
+	string attr_name;
 
 } ;
 
