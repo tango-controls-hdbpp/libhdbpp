@@ -1,7 +1,7 @@
 
 include ../../Make-hdb++.in
 
-CXXFLAGS += -Wall -DRELEASE='"N$Name:  $ "' -I$(TANGO_INC) -I$(OMNI_INC)
+CXXFLAGS += -Wall -DRELEASE='"$HeadURL:  $ "' -I$(TANGO_INC) -I$(OMNI_INC)
 CXX = g++
 
 
