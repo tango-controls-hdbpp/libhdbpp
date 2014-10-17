@@ -37,6 +37,7 @@
 #define DB_START		1
 #define DB_STOP			2
 #define DB_REMOVE		3
+#define DB_INSERT_PARAM	4
 
 typedef struct HdbEventDataType_
 {
@@ -52,10 +53,12 @@ typedef struct HdbEventDataType_
 class  HdbCmdData
 {
 public:
-	HdbCmdData(Tango::EventData *ev_data_, HdbEventDataType ev_data_type_){ev_data=ev_data_; ev_data_type=ev_data_type_; op_code=DB_INSERT;};
-	HdbCmdData(uint8_t op_code_, string attr_name_){op_code=op_code_; attr_name=attr_name_; ev_data=NULL;};
-    ~HdbCmdData(){if(ev_data) delete ev_data;};
+	HdbCmdData(Tango::EventData *ev_data_, HdbEventDataType ev_data_type_){ev_data=ev_data_; ev_data_param=NULL; ev_data_type=ev_data_type_; op_code=DB_INSERT;};
+	HdbCmdData(Tango::AttrConfEventData *ev_data_param_, HdbEventDataType ev_data_type_){ev_data=NULL; ev_data_param=ev_data_param_; ev_data_type=ev_data_type_; op_code=DB_INSERT_PARAM;};
+	HdbCmdData(uint8_t op_code_, string attr_name_){op_code=op_code_; attr_name=attr_name_; ev_data=NULL; ev_data_param=NULL;};
+    ~HdbCmdData(){if(ev_data) delete ev_data; if(ev_data_param) delete ev_data_param;};
 	Tango::EventData *ev_data;
+	Tango::AttrConfEventData *ev_data_param;
 	HdbEventDataType ev_data_type;
 	uint8_t op_code;	//operation code
 	string attr_name;
@@ -69,6 +72,8 @@ public:
 
 
 	virtual int insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type) = 0;
+
+	virtual int insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type) = 0;
 
 	virtual int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/) = 0;
 
@@ -108,6 +113,8 @@ public:
 #endif
 
 	int insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type);
+
+	int insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type);
 
 	int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/);
 

@@ -77,6 +77,10 @@ int HdbClient::insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type
 	return db->insert_Attr(data, ev_data_type);
 }
 
+int HdbClient::insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type)
+{
+	return db->insert_param_Attr(data, ev_data_type);
+}
 
 int HdbClient::configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/)
 {
