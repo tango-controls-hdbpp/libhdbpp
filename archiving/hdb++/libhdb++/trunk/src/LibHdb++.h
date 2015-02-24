@@ -93,6 +93,7 @@ class DBFactory
 public:
 
 	virtual AbstractDB* create_db(string host, string user, string password, string dbname, int port) = 0;
+	virtual ~DBFactory(){};
 
 };
 
