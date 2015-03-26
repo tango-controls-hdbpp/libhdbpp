@@ -38,6 +38,7 @@
 #define DB_STOP			2
 #define DB_REMOVE		3
 #define DB_INSERT_PARAM	4
+#define DB_PAUSE		5
 
 typedef struct HdbEventDataType_
 {
@@ -83,6 +84,8 @@ public:
 
 	virtual int stop_Attr(string name) = 0;
 
+	virtual int pause_Attr(string name) = 0;
+
 	virtual ~AbstractDB() {}
 
 };
@@ -124,6 +127,8 @@ public:
 	int start_Attr(string name);
 
 	int stop_Attr(string name);
+
+	int pause_Attr(string name);
 
 	~HdbClient();
 
