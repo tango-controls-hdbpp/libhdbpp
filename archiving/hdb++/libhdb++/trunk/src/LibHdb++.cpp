@@ -101,7 +101,12 @@ int HdbClient::stop_Attr(string name)
 {
 	return db->stop_Attr(name);
 }
-	
+
+int HdbClient::pause_Attr(string name)
+{
+	return db->pause_Attr(name);
+}
+
 HdbClient::~HdbClient()
 {
 	delete db;
