@@ -87,24 +87,9 @@ int HdbClient::configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*
 	return db->configure_Attr(name, type, format, write_type);
 }
 
-int HdbClient::remove_Attr(string name)
+int HdbClient::event_Attr(string name, unsigned char event)
 {
-	return db->remove_Attr(name);
-}
-
-int HdbClient::start_Attr(string name)
-{
-	return db->start_Attr(name);
-}
-
-int HdbClient::stop_Attr(string name)
-{
-	return db->stop_Attr(name);
-}
-
-int HdbClient::pause_Attr(string name)
-{
-	return db->pause_Attr(name);
+	return db->event_Attr(name, event);
 }
 
 HdbClient::~HdbClient()

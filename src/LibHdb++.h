@@ -78,13 +78,7 @@ public:
 
 	virtual int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/) = 0;
 
-	virtual int remove_Attr(string name) = 0;
-
-	virtual int start_Attr(string name) = 0;
-
-	virtual int stop_Attr(string name) = 0;
-
-	virtual int pause_Attr(string name) = 0;
+	virtual int event_Attr(string name, unsigned char event) = 0;
 
 	virtual ~AbstractDB() {}
 
@@ -122,13 +116,7 @@ public:
 
 	int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/);
 
-	int remove_Attr(string name);
-
-	int start_Attr(string name);
-
-	int stop_Attr(string name);
-
-	int pause_Attr(string name);
+	int event_Attr(string name, unsigned char event);
 
 	~HdbClient();
 
