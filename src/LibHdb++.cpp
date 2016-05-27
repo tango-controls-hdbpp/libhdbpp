@@ -42,35 +42,16 @@ const char version_string[] = "$Build: " LIB_BUILDTIME " $";
 static const char __FILE__rev[] = __FILE__ " $Id: 1.6 $";
 
 
-
-#if _DB_AT_RUNTIME
-HdbClient::HdbClient(string dbtype, string host, string user, string password, string dbname, int port)
-{
-	if(dbtype == "MySQL")
-	{
-		HdbMySQLFactory db_mysql_factory;
-		db_factory = &db_mysql_factory;
-		db = db_factory->create_db(host, user, password, dbname, port);
-	}
-	else
-	{
-		cout << __func__<<": VERSION: " << version_string << " file:" << __FILE__rev << endl;
-		cout << __func__<<": Type '" << dbtype << "' not supported" << endl;
-		throw(string("Type '") + dbtype + string("' not supported"));
-	}
-}
-#else
-HdbClient::HdbClient(string host, string user, string password, string dbname, int port)
+HdbClient::HdbClient(vector<string> configuration)
 {
 		db_factory = getDBFactory();
-		db = db_factory->create_db(host, user, password, dbname, port);
+		db = db_factory->create_db(configuration);
 		if(db == NULL)
 		{
 			cout << __func__<<": VERSION: " << version_string << " file:" << __FILE__rev << endl;
 			cout << __func__<<": Error creating db" << endl;
 		}
 }
-#endif
 
 int HdbClient::insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type)
 {
@@ -82,9 +63,9 @@ int HdbClient::insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataTyp
 	return db->insert_param_Attr(data, ev_data_type);
 }
 
-int HdbClient::configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/)
+int HdbClient::configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/)
 {
-	return db->configure_Attr(name, type, format, write_type);
+	return db->configure_Attr(name, type, format, write_type, ttl);
 }
 
 int HdbClient::event_Attr(string name, unsigned char event)
