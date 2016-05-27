@@ -76,7 +76,7 @@ public:
 
 	virtual int insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type) = 0;
 
-	virtual int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/) = 0;
+	virtual int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/) = 0;
 
 	virtual int event_Attr(string name, unsigned char event) = 0;
 
@@ -89,7 +89,7 @@ class DBFactory
 
 public:
 
-	virtual AbstractDB* create_db(string host, string user, string password, string dbname, int port) = 0;
+	virtual AbstractDB* create_db(vector<string> configuration) = 0;
 	virtual ~DBFactory(){};
 
 };
@@ -104,35 +104,19 @@ private:
 	DBFactory *getDBFactory();
 
 public:
-#if _DB_AT_RUNTIME
-	HdbClient(string dbtype,string host, string user, string password, string dbname, int port);
-#else
-	HdbClient(string host, string user, string password, string dbname, int port);
-#endif
+	HdbClient(vector<string> configuration);
 
 	int insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type);
 
 	int insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type);
 
-	int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/);
+	int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/);
 
 	int event_Attr(string name, unsigned char event);
 
 	~HdbClient();
 
 };
-
-
-/*//MYSQL:
-class HdbMySQLFactory : public DBFactory
-{
-
-public:
-	virtual AbstractDB* create_db(string host, string user, string password, string dbname, int port);
-
-};
-
-//TODO: create factories for other DB engine*/
 
 
 
