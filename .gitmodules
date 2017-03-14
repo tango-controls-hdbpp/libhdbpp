@@ -1,0 +1,3 @@
+[submodule ".hdbpp-common"]
+	path = .hdbpp-common
+	url = https://github.com/ELETTRA-SincrotroneTrieste/hdbpp-common.git
