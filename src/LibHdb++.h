@@ -6,23 +6,6 @@
 //
 // Author: Graziano Scalamera
 //
-// $Revision: 1.4 $
-//
-// $Log: LibHdb++.h,v $
-// Revision 1.4  2014-03-07 13:15:00  graziano
-// added remove_Attr, start_Attr, stop_Attr
-// removed _HDBEVENTDATA
-//
-// Revision 1.3  2014-02-06 14:35:12  graziano
-// added api for CM
-//
-// Revision 1.2  2013-09-24 08:48:37  graziano
-// support for HdbEventData
-//
-// Revision 1.1  2013-09-02 12:25:36  graziano
-// libhdb refurbishing
-//
-//
 //
 //=============================================================================
 
@@ -100,8 +83,11 @@ class HdbClient
 private:
 	AbstractDB *db;
 	DBFactory *db_factory;
+	void* hLib;
 
 	DBFactory *getDBFactory();
+	void string_explode(string str, string separator, vector<string>* results);
+	void string_vector2map(vector<string> str, string separator, map<string,string>* results);
 
 public:
 	HdbClient(vector<string> configuration);
@@ -118,7 +104,11 @@ public:
 
 };
 
-
+extern "C"
+{
+	typedef DBFactory * getDBFactory_t();
+    DBFactory *getDBFactory();
+}
 
 
 #endif

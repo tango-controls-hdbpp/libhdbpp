@@ -1,8 +1,8 @@
+MAKE_INC = .hdbpp-common
 
-include ../../Make-hdb++.in
+include ./$(MAKE_INC)/Make-hdbpp.in
 
-CXXFLAGS += -Wall -DRELEASE='"$HeadURL$ "' -I$(TANGO_INC) -I$(OMNI_INC) -I$(ZEROMQ_INC)
-CXX = g++
+CXXFLAGS += -std=gnu++0x -Wall -DRELEASE='"$HeadURL$ "' $(INC_DIR)
 
 
 ##############################################
@@ -15,7 +15,7 @@ SHLIB_SUFFIX = so
 
 #  release numbers for libraries
 #
- LIBVERSION    = 4
+ LIBVERSION    = 5
  LIBRELEASE    = 0
  LIBSUBRELEASE = 0
 #
@@ -30,7 +30,7 @@ SHLIB         = $(BASELIBNAME).$(SHLIB_SUFFIX)
 .PHONY : install clean
 
 lib/LibHdb++: lib obj obj/LibHdb++.o
-	$(CXX) obj/LibHdb++.o $(SHLDFLAGS) $(LFLAGS_SONAME)$(DT_SONAME) -l$(LIBHDBIMPL) -L$(LIBHDBIMPL_LIB) -o lib/$(DT_SHLIB)
+	$(CXX) obj/LibHdb++.o $(SHLDFLAGS) $(LFLAGS_SONAME)$(DT_SONAME) -o lib/$(DT_SHLIB)
 	ln -sf $(DT_SHLIB) lib/$(SHLIB)
 	ln -sf $(SHLIB) lib/$(DT_SONAME)
 	ar rcs lib/$(LIBRARY) obj/LibHdb++.o
