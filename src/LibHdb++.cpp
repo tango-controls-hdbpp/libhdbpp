@@ -82,6 +82,11 @@ int HdbClient::configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*
 	return db->configure_Attr(name, type, format, write_type, ttl);
 }
 
+int HdbClient::updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/)
+{
+	return db->updateTTL_Attr(name, ttl);
+}
+
 int HdbClient::event_Attr(string name, unsigned char event)
 {
 	return db->event_Attr(name, event);

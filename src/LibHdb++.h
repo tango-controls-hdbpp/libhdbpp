@@ -61,6 +61,8 @@ public:
 
 	virtual int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/) = 0;
 
+	virtual int updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/) = 0;
+
 	virtual int event_Attr(string name, unsigned char event) = 0;
 
 	virtual ~AbstractDB() {}
@@ -97,6 +99,8 @@ public:
 	int insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type);
 
 	int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/);
+
+	int updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/);
 
 	int event_Attr(string name, unsigned char event);
 
