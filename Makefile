@@ -1,6 +1,8 @@
-MAKE_INC = .hdbpp-common
+TANGO_INC := ${TANGO_DIR}/include/tango
+OMNIORB_INC := ${OMNIORB_DIR}/include
+ZMQ_INC :=  ${ZMQ_DIR}/include
 
-include ./$(MAKE_INC)/Make-hdbpp.in
+INC_DIR = -I${TANGO_INC} -I${OMNIORB_INC} -I${ZMQ_INC}
 
 CXXFLAGS += -std=gnu++0x -Wall -DRELEASE='"$HeadURL$ "' $(INC_DIR)
 
