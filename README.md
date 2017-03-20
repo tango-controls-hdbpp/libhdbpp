@@ -2,7 +2,7 @@
 Interface library for HDB++
 
 ## building
-git clone --recursive http://github.com/ELETTRA-SincrotroneTrieste/libhdbpp.git  
+git clone --recursive http://github.com/tango-controls/libhdbpp.git  
 cd libhdbpp  
 export TANGO_DIR=/usr/local/tango-9.2.5a  
 export OMNIORB_DIR=/usr/local/omniorb-4.2.1  
