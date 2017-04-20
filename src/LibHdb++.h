@@ -22,6 +22,7 @@
 #define DB_REMOVE		3
 #define DB_INSERT_PARAM	4
 #define DB_PAUSE		5
+#define DB_UPDATETTL	6
 
 typedef struct HdbEventDataType_
 {
@@ -40,11 +41,13 @@ public:
 	HdbCmdData(Tango::EventData *ev_data_, HdbEventDataType ev_data_type_){ev_data=ev_data_; ev_data_param=NULL; ev_data_type=ev_data_type_; op_code=DB_INSERT;};
 	HdbCmdData(Tango::AttrConfEventData *ev_data_param_, HdbEventDataType ev_data_type_){ev_data=NULL; ev_data_param=ev_data_param_; ev_data_type=ev_data_type_; op_code=DB_INSERT_PARAM;};
 	HdbCmdData(uint8_t op_code_, string attr_name_){op_code=op_code_; attr_name=attr_name_; ev_data=NULL; ev_data_param=NULL;};
+	HdbCmdData(uint8_t op_code_, unsigned int ttl_, string attr_name_){op_code=op_code_; attr_name=attr_name_; ttl=ttl_; ev_data=NULL; ev_data_param=NULL;};
     ~HdbCmdData(){if(ev_data) delete ev_data; if(ev_data_param) delete ev_data_param;};
 	Tango::EventData *ev_data;
 	Tango::AttrConfEventData *ev_data_param;
 	HdbEventDataType ev_data_type;
 	uint8_t op_code;	//operation code
+	unsigned int  ttl;
 	string attr_name;
 
 } ;
