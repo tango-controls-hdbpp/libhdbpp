@@ -17,7 +17,7 @@ SHLIB_SUFFIX = so
 
 #  release numbers for libraries
 #
- LIBVERSION    = 5
+ LIBVERSION    = 6
  LIBRELEASE    = 0
  LIBSUBRELEASE = 0
 #

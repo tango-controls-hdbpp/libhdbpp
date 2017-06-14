@@ -58,15 +58,15 @@ class AbstractDB
 public:
 
 
-	virtual int insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type) = 0;
+	virtual void insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type) = 0;
 
-	virtual int insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type) = 0;
+	virtual void insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type) = 0;
 
-	virtual int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/) = 0;
+	virtual void configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/) = 0;
 
-	virtual int updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/) = 0;
+	virtual void updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/) = 0;
 
-	virtual int event_Attr(string name, unsigned char event) = 0;
+	virtual void event_Attr(string name, unsigned char event) = 0;
 
 	virtual ~AbstractDB() {}
 
@@ -97,15 +97,15 @@ private:
 public:
 	HdbClient(vector<string> configuration);
 
-	int insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type);
+	void insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type);
 
-	int insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type);
+	void insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type);
 
-	int configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/);
+	void configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/);
 
-	int updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/);
+	void updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/);
 
-	int event_Attr(string name, unsigned char event);
+	void event_Attr(string name, unsigned char event);
 
 	~HdbClient();
 

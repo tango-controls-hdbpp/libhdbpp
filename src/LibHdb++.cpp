@@ -67,29 +67,29 @@ HdbClient::HdbClient(vector<string> configuration)
 	}
 }
 
-int HdbClient::insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type)
+void HdbClient::insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type)
 {
-	return db->insert_Attr(data, ev_data_type);
+	db->insert_Attr(data, ev_data_type);
 }
 
-int HdbClient::insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type)
+void HdbClient::insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type)
 {
-	return db->insert_param_Attr(data, ev_data_type);
+	db->insert_param_Attr(data, ev_data_type);
 }
 
-int HdbClient::configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/)
+void HdbClient::configure_Attr(string name, int type/*DEV_DOUBLE, DEV_STRING, ..*/, int format/*SCALAR, SPECTRUM, ..*/, int write_type/*READ, READ_WRITE, ..*/, unsigned int ttl/*hours, 0=infinity*/)
 {
-	return db->configure_Attr(name, type, format, write_type, ttl);
+	db->configure_Attr(name, type, format, write_type, ttl);
 }
 
-int HdbClient::updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/)
+void HdbClient::updateTTL_Attr(string name, unsigned int ttl/*hours, 0=infinity*/)
 {
-	return db->updateTTL_Attr(name, ttl);
+	db->updateTTL_Attr(name, ttl);
 }
 
-int HdbClient::event_Attr(string name, unsigned char event)
+void HdbClient::event_Attr(string name, unsigned char event)
 {
-	return db->event_Attr(name, event);
+	db->event_Attr(name, event);
 }
 
 HdbClient::~HdbClient()
