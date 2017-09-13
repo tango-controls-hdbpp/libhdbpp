@@ -57,7 +57,7 @@ include(GNUInstallDirs)
 set(SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/LibHdb++.cpp)
 
 # Configure the compiler flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 # Set the output directory to lib to stay consistent with the old build
 set(OUTPUT_DIR "lib")

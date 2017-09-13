@@ -49,7 +49,7 @@ HdbClient::HdbClient(vector<string> configuration)
 			db_factory = create_factory();
 			db = db_factory->create_db(configuration);
 			if(db == NULL)
-			{;
+			{
 				cout << __func__<<": Error creating db" << endl;
 				exit(1);
 			}
