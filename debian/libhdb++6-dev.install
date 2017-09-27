@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+usr/include/libhdb++/LibHdb++.h usr/include/libhdb++/LibHdb++.h
+usr/lib/*/libhdbp++.so usr/lib/*/

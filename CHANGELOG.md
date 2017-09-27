@@ -9,13 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.10.0] - 2017-09-13
 
 ### Added
-* CHANGELOG.md file
-* LICENSE file
-* License headers in code
+* CHANGELOG.md file.
+* INSTALL.md file.
+* LICENSE file.
+* CMake build and configuration files.
+* License headers in code.
 
 ### Changed
-* Moved build system from Make to CMake
-* Readme.md - Added lots of new information
+* Moved build system from Make to CMake.
+* Readme.md - Added lots of new information.
+* When including `tango.h` use the correct path.
 
 ### Removed
-* Make build system
+* Makefile build system.

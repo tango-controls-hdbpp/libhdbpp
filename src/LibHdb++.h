@@ -126,5 +126,4 @@ extern "C"
     DBFactory *getDBFactory();
 }
 
-
-#endif _HDBPP_H
+#endif // _HDBPP_H

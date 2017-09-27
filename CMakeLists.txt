@@ -8,7 +8,6 @@ endif()
 
 # Start Build Config -----------------------------------
 cmake_minimum_required(VERSION 3.0)
-set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_COLOR_MAKEFILE   ON)
 
@@ -55,9 +54,6 @@ include(GNUInstallDirs)
 # Create a list of the source files for this build to be given to
 # the target later
 set(SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/LibHdb++.cpp)
-
-# Configure the compiler flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 # Set the output directory to lib to stay consistent with the old build
 set(OUTPUT_DIR "lib")
@@ -117,6 +113,9 @@ endforeach(LIB)
 add_library(object_library OBJECT ${SRC_FILES})
 set_property(TARGET object_library PROPERTY POSITION_INDEPENDENT_CODE 1)
 
+target_compile_options(object_library 
+    PUBLIC -std=c++11 -Wall -Wextra)
+
 target_include_directories(object_library 
     PUBLIC ${INCLUDE_PATHS}
     PRIVATE "${PROJECT_BINARY_DIR}")
@@ -148,7 +147,10 @@ if(HDBPP_BUILD_STATIC)
     target_link_libraries(static_library PUBLIC ${LIBS_DIR})
 
     # Ensure the output is a library.a
-    set_target_properties(static_library PROPERTIES OUTPUT_NAME hdb++)
+    set_target_properties(static_library PROPERTIES 
+        OUTPUT_NAME hdb++
+        LINK_FLAGS "-Wl,--no-undefined")
+
 endif(HDBPP_BUILD_STATIC)
 
 # Install Config -----------------------------------
@@ -161,5 +163,5 @@ if(HDBPP_BUILD_STATIC)
 endif(HDBPP_BUILD_STATIC)
 
 if(HDBPP_INSTALL_HEADERS)
-    install(FILES src/LibHdb++.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    install(FILES src/LibHdb++.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libhdb++)
 endif(HDBPP_INSTALL_HEADERS)

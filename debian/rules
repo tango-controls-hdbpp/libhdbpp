@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # See debhelper(7) (uncomment to enable)
 # output every command that modifies files on the build system.
-export DH_VERBOSE = 1
+# export DH_VERBOSE = 1
 
 %:
 	dh $@ --buildsystem=cmake
@@ -10,6 +10,7 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_INCLUDE_PATH=/usr/include/tango \
-		-DCMAKE_BUILD_TYPE=Release
+		-DCMAKE_BUILD_TYPE=Release \
+		-DHDBPP_INSTALL_HEADERS=ON
 
 override_dh_auto_test:

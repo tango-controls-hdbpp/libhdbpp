@@ -1,20 +1,27 @@
 Source: libhdb++
 Priority: optional
 Maintainer: Stuart James <stuart.james@esrf.fr>
-Build-Depends: debhelper (>= 9.0.0), cmake (>= 3.0.0), make
+Build-Depends: libtango-dev (=9.2.5a+dfsg1-2),  libomnithread3-dev (>=4.1.6-2), libomniorb4-dev (>=4.1.6-2), debhelper (>= 9.0.0), cmake (>= 3.0.0), make
 Standards-Version: 3.9.3
 Section: libs
 Homepage: https://github.com/tango-controls/libhdbpp
+
+Package: libhdb6++-dev
+Priority: optional
+Section: libdevel
+Architecture: any
+Depends: libhdb++6 (=1.0.0), ${shlibs:Depends}, ${misc:Depends}
+Description: Tango Controls event archive interface. Development files.
+ Part of the Tango Controls database archive system. This library 
+ is an abstraction for the actual driver libraries, and dynamically loads the 
+ relevant library based on its configuration parameters.
 
 Package: libhdb++6
 Priority: optional
 Section: libs
 Architecture: any
-Depends: libomniorb4-1 (>= 4.1.6), libomniorb4-1 (>= 4.1.6), ${shlibs:Depends}, ${misc:Depends}
-Description: Provides a generic API for tango control database archiving.
+Depends: libomniorb4-1 (>= 4.1.6-2), libomnithread3c2 (>= 4.1.6-2), ${shlibs:Depends}, ${misc:Depends}
+Description: Tango Controls event archive interface. Runtime files.
  Part of the Tango Controls database archive system. This library 
  is an abstraction for the actual driver libraries, and dynamically loads the 
- relevant library based on its configuration parameters. The library provides 
- a generic API to program tango control archiver's against.
- .
- Supported database include Cassandra and MySQL.
+ relevant library based on its configuration parameters.
