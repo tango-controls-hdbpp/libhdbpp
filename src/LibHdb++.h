@@ -3,7 +3,7 @@
    Strada Statale 14 - km 163,5 in AREA Science Park
    34149 Basovizza, Trieste, Italy.
 
-   This file is part of libhdb.
+   This file is part of libhdb++.
 
    libhdb++cassandra is free software: you can redistribute it and/or modify
    it under the terms of the Lesser GNU General Public License as published by

@@ -1,4 +1,5 @@
 #!/usr/bin/make -f
+
 # See debhelper(7) (uncomment to enable)
 # output every command that modifies files on the build system.
 # export DH_VERBOSE = 1
@@ -12,5 +13,7 @@ override_dh_auto_configure:
 		-DCMAKE_INCLUDE_PATH=/usr/include/tango \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DHDBPP_INSTALL_HEADERS=ON
+
+	# Work around for tango include peculiarities - add /usr/include/tango as an include
 
 override_dh_auto_test:

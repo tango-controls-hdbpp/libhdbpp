@@ -2,7 +2,7 @@
 
 Interface library for the HDB++ archiving system. Libhdbpp provides an abstract means to archive data events to either a Cassandra or MySQL database.
 
-## **Important Changes** 0.9.1 -> 0.10.0
+## **Important Changes** 0.9.1 -> 1.0.0
 
 This release version of the library has made a few changes to standardize its use and deployment.
 * The build system has been moved to CMake. Details on building it using CMake are below.

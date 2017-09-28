@@ -1,0 +1,3 @@
+#! /usr/bin/dh-exec
+usr/include/libhdb++/LibHdb++.h usr/include/libhdb++/
+usr/lib/*/libhdb++.so usr/lib/${DEB_HOST_MULTIARCH}/

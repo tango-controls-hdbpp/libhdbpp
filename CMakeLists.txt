@@ -20,8 +20,8 @@ project(static_library)
 set(CMAKE_BUILD_TYPE "Release")
 
 # Project version
-set(LIBHDBPP_VERSION_MAJOR "0")
-set(LIBHDBPP_VERSION_MINOR "10")
+set(LIBHDBPP_VERSION_MAJOR "1")
+set(LIBHDBPP_VERSION_MINOR "0")
 set(LIBHDBPP_VERSION_REVISION "0")
 string(TIMESTAMP LIBHDBPP_TIMESTAMP "%Y-%m-%d %H:%M:%S")
 
