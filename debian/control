@@ -12,7 +12,7 @@ Standards-Version: 3.9.8
 Section: libs
 Homepage: https://github.com/tango-controls/libhdbpp
 
-Package: libhdb++-dev
+Package: libhdb++6-dev
 Priority: optional
 Section: libdevel
 Architecture: any

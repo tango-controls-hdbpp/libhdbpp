@@ -2,7 +2,11 @@
 
 Interface library for the HDB++ archiving system. Libhdbpp provides an abstract means to archive data events to either a Cassandra or MySQL database.
 
-## **Important Changes** 0.9.1 -> 1.0.0
+## Version
+
+The current release version is 1.0.0
+
+### **Important Changes** 0.9.1 -> 1.0.0
 
 This release version of the library has made a few changes to standardize its use and deployment.
 * The build system has been moved to CMake. Details on building it using CMake are below.
@@ -10,7 +14,7 @@ This release version of the library has made a few changes to standardize its us
 
 ## Documentation
 
-* See the tango documentation [here](http://tango-controls.readthedocs.io/en/latest/administration/services/hdbpp/index.html#hdb-an-archiving-historian-service) for broader information about the HB++ archiving system and its integration into Tango Controls
+* See the Tango documentation [here](http://tango-controls.readthedocs.io/en/latest/administration/services/hdbpp/index.html#hdb-an-archiving-historian-service) for broader information about the HB++ archiving system and its integration into Tango Controls
 * Libhdbpp [CHANGELOG.md](https://github.com/tango-controls/libhdbpp/blob/master/CHANGELOG.md) contains the latest changes both released and in development.
 
 ## Bugs Reports

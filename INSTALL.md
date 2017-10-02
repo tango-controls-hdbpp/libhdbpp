@@ -16,7 +16,7 @@ The build system is CMake therefore standard CMake flags can be used to influenc
 |------|---------|-----|
 | HDBPP_BUILD_SHARED | ON | Build the shared library. This will also be installed if make install is run. |
 | HDBPP_BUILD_STATIC | OFF | Build the static library. This will also be installed if make install is run. |
-| HDBPP_INSTALL_HEADERS | OFF | On running make install, install the header files. |
+| HDBPP_DEV_INSTALL | OFF | Install development files and libraries |
 
 The following is a list of common useful CMake flags and their use:
 

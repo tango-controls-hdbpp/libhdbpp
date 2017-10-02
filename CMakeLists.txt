@@ -19,34 +19,22 @@ project(static_library)
 # We only support Release for now
 set(CMAKE_BUILD_TYPE "Release")
 
-# Project version
-set(LIBHDBPP_VERSION_MAJOR "1")
-set(LIBHDBPP_VERSION_MINOR "0")
-set(LIBHDBPP_VERSION_REVISION "0")
-string(TIMESTAMP LIBHDBPP_TIMESTAMP "%Y-%m-%d %H:%M:%S")
-
-# Version the shared library
-set(LIBRARY_VERSION_MAJOR 6)
-set(LIBRARY_VERSION_MINOR 0)
-set(LIBRARY_VERSION_PATCH 0)
-
-set(LIBRARY_VERSION_STRING 
-    ${LIBRARY_VERSION_MAJOR}.${LIBRARY_VERSION_MINOR}.${LIBRARY_VERSION_PATCH})
+include(cmake/ReleaseVersion.cmake)
 
 # Check any custom flags
 # Check any custom flags
 option(HDBPP_BUILD_SHARED "Build shared library" ON)
 option(HDBPP_BUILD_STATIC "Build static library" OFF)
-option(HDBPP_INSTALL_HEADERS "Install header files on install" OFF)
+option(HDBPP_DEV_INSTALL "Install development files" OFF)
 
 # Debug the flags
+if(HDBPP_DEV_INSTALL)
+    message(STATUS "Development install requested")
+endif(HDBPP_DEV_INSTALL)
+
 if(NOT HDBPP_BUILD_SHARED AND NOT HDBPP_BUILD_STATIC)
     message(FATAL "Must select to build static and/or shared library")
 endif(NOT HDBPP_BUILD_SHARED AND NOT HDBPP_BUILD_STATIC)
-
-if(HDBPP_INSTALL_HEADERS)
-    message(STATUS "Header install requested")
-endif(HDBPP_INSTALL_HEADERS)
 
 # arch install definitions
 include(GNUInstallDirs)
@@ -155,13 +143,21 @@ endif(HDBPP_BUILD_STATIC)
 
 # Install Config -----------------------------------
 if(HDBPP_BUILD_SHARED)
-    install(TARGETS shared_library LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+    if(HDBPP_DEV_INSTALL)
+        install(TARGETS shared_library LIBRARY 
+            DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+        install(FILES src/LibHdb++.h 
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libhdb++)            
+    else()
+        install(TARGETS shared_library 
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            NAMELINK_SKIP)
+    endif(HDBPP_DEV_INSTALL)
+
 endif(HDBPP_BUILD_SHARED)
 
 if(HDBPP_BUILD_STATIC)
     install(TARGETS static_library ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif(HDBPP_BUILD_STATIC)
-
-if(HDBPP_INSTALL_HEADERS)
-    install(FILES src/LibHdb++.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libhdb++)
-endif(HDBPP_INSTALL_HEADERS)

@@ -1,4 +1,5 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
@@ -9,16 +10,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.0.0] - 2017-09-13
 
 ### Added
+
 * CHANGELOG.md file.
 * INSTALL.md file.
-* LICENSE file.
-* CMake build and configuration files.
+* LICENCE file.
 * License headers in code.
+* Debian Package build files under debian/
+* CMake build and configuration files.
 
 ### Changed
+
 * Moved build system from Make to CMake.
-* Readme.md - Added lots of new information.
+* README.md - Added lots of new information.
 * When including `tango.h` use the correct path.
+* Source file headers changed for correct licence.
 
 ### Removed
+
 * Makefile build system.
