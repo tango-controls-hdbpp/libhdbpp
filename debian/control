@@ -10,7 +10,7 @@ Build-Depends: libtango-dev (=9.2.5a+dfsg1-2),
                make
 Standards-Version: 3.9.8
 Section: libs
-Homepage: https://github.com/tango-controls/libhdbpp
+Homepage: https://github.com/tango-controls-hdbpp/libhdbpp
 
 Package: libhdb++6-dev
 Priority: optional

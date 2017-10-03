@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: libhdbpp
-Source: https://github.com/tango-controls/libhdbpp
+Source: https://github.com/tango-controls-hdbpp/libhdbpp
 
 Files: *
 Copyright: 2014-2017 Elettra - Sincrotrone Trieste S.C.p.A.
