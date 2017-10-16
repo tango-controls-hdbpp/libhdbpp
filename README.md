@@ -8,14 +8,12 @@ The current release version is 1.0.0
 
 ### **Important Changes** 0.9.1 -> 1.0.0
 
-This release version of the library has made a few changes to standardize its use and deployment.
 * The build system has been moved to CMake. Details on building it using CMake are below.
-* The main tango.h include has been changed from `include <tango.h>` to `include <tango/tango.h>`. This reflects the standard install path of the tango headers in /usr/include/tango and is more consistent with header include patterns. What this means for building the library is we no longer need to specify the tango install directory if its installed in a standard location. If its installed non-standard, then standard CMake flags can used to specify the include and library location (See the [INSTALL.md](https://github.com/tango-controls/libhdbpp/blob/master/INSTALL.md))
 
 ## Documentation
 
 * See the Tango documentation [here](http://tango-controls.readthedocs.io/en/latest/administration/services/hdbpp/index.html#hdb-an-archiving-historian-service) for broader information about the HB++ archiving system and its integration into Tango Controls
-* Libhdbpp [CHANGELOG.md](https://github.com/tango-controls/libhdbpp/blob/master/CHANGELOG.md) contains the latest changes both released and in development.
+* libhdbpp [CHANGELOG.md](https://github.com/tango-controls/libhdbpp/blob/master/CHANGELOG.md) contains the latest changes both released and in development.
 
 ## Bugs Reports
 

@@ -21,7 +21,7 @@
 #ifndef _HDBPP_H
 #define _HDBPP_H
 
-#include <tango/tango.h>
+#include <tango.h>
 #include <vector>
 #include <stdint.h>
 

@@ -2,11 +2,19 @@
 
 ## Dependencies
 
-Libhdbpp depends on libdl.so, libomniORB4.so and libomnithread.so. If they have not been installed in a standard location, then use standard CMake flags below to inform the build where to search for them.
+Ensure the development version of the dependencies are installed. These are as follows:
 
-It is dependent on a Tango Controls install via debian package or source distribution. Supported Tango Controls release is 9.2.5a.
+* Tango Controls 9.2.5a.
+* omniORB release 4 - libomniorb4 and libomnithread
+* libzmq - libzmq3-dev or libzmq5-dev
 
-CMake 3.0.0 or greater is required to perform the build.
+If they have not been installed in a standard location, then use standard CMake flags below to inform the build where to search for them.
+
+The library can be built with Tango Controls install via debian package or source distribution. Supported Tango Controls release is currently 9.2.5a. Ensure build flags are used if tango is installed to a custom location.
+
+Toolchain dependencies:
+
+* CMake 3.0.0 or greater is required to perform the build.
 
 ## Standard flags
 
@@ -38,11 +46,9 @@ Note: to pass multiple paths (i.e. a string list to cmake), either an escaped se
 
 ## Building
 
-Build using CMake version 3.0.0 or greater. An out of source build is required by the CMakeLists file.
+### Building Against Tango Controls 9.2.5a
 
-### **Important Note:** - Building Against Standard Tango Controls 9.2.5a
-
-Tango Controls 9.2.5a as source distribution or debian package on Debian Stretch installs the header files into `/usr/include/tango`, but `tango.h` includes tango headers (example `tango_config.h`) from  `/usr/include`. This means the build fails. To work around this until the next release of Tango Controls (which fixes this problem) add `/usr/include/tango` to the CMAKE_INCLUDE_PATH, eg:
+**The debian package and source install place the headers under /usr/include/tango, yet the code includes tango via `#include <tango.h>` (to be compatible with Tango Controls 10 when it is released), so its likely you will need to pass at least one path via CMAKE_INCLUDE_PATH. In this case, set CMAKE_INCLUDE_PATH=/usr/include/tango or CMAKE_INCLUDE_PATH=/usr/local/include/tango, depending on your install method. Example:**
 
 ```bash
 cmake -DCMAKE_INCLUDE_PATH=/usr/include/tango ..
@@ -56,7 +62,7 @@ First clone the repository:
 git clone http://github.com/tango-controls/libhdbpp.git
 ```
 
-Create a build directory to run CMake from:
+An out of source build is required by the CMakeLists file, so create a build directory to run CMake from:
 
 ```bash
 mkdir libhdbpp/build
