@@ -1,6 +1,6 @@
 # Libhdbpp
 
-Interface library for the HDB++ archiving system. Libhdbpp provides an abstract means to archive data events to either a Cassandra or MySQL database.
+Interface library for the HDB++ archiving system. Libhdbpp provides an abstract means to archive data events to a Cassandra database, MySQL database, or potentially other database backends.
 
 ## Version
 

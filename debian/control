@@ -1,7 +1,7 @@
 Source: libhdb++
 Priority: optional
 Maintainer: Stuart James <stuart.james@esrf.fr>
-Build-Depends: libtango-dev (=9.2.5a+dfsg1-2),  
+Build-Depends: libtango-dev,  
                libomnithread3-dev, 
                libomniorb4-dev, 
                dh-exec, 
@@ -29,7 +29,11 @@ Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: libomniorb4-1, libomnithread3c2, ${shlibs:Depends}, ${misc:Depends}
+Depends: libtango9, 
+         libomniorb4-1, 
+         libomnithread3c2, 
+         ${shlibs:Depends}, 
+         ${misc:Depends}
 Description: Tango Controls event archive interface. Runtime files.
  Part of the Tango Controls database archive system. This library 
  is an abstraction for the actual driver libraries, and dynamically loads the 

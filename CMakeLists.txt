@@ -22,7 +22,6 @@ set(CMAKE_BUILD_TYPE "Release")
 include(cmake/ReleaseVersion.cmake)
 
 # Check any custom flags
-# Check any custom flags
 option(HDBPP_BUILD_SHARED "Build shared library" ON)
 option(HDBPP_BUILD_STATIC "Build static library" OFF)
 option(HDBPP_DEV_INSTALL "Install development files" OFF)
@@ -118,7 +117,7 @@ if(HDBPP_BUILD_SHARED)
 
     # Setting the target includes will allow us to link to this shared
     # library via the cmake project and not require us to include all
-    # its depenencies
+    # its dependencies
     target_include_directories(shared_library 
         PUBLIC ${INCLUDE_PATHS}
         PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src

@@ -22,7 +22,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Moved build system from Make to CMake.
 * README.md - Added lots of new information.
-* When including `tango.h` use the correct path.
 * Source file headers changed for correct licence.
 
 ### Removed
