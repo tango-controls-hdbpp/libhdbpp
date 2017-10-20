@@ -13,7 +13,7 @@ The current release version is 1.0.0
 ## Documentation
 
 * See the Tango documentation [here](http://tango-controls.readthedocs.io/en/latest/administration/services/hdbpp/index.html#hdb-an-archiving-historian-service) for broader information about the HB++ archiving system and its integration into Tango Controls
-* libhdbpp [CHANGELOG.md](https://github.com/tango-controls/libhdbpp/blob/master/CHANGELOG.md) contains the latest changes both released and in development.
+* libhdbpp [CHANGELOG.md](https://github.com/tango-controls-hdbpp/libhdbpp/blob/master/CHANGELOG.md) contains the latest changes both released and in development.
 
 ## Bugs Reports
 
@@ -32,7 +32,7 @@ make
 make install
 ```
 
-See the [INSTALL.md](https://github.com/tango-controls/libhdbpp/blob/master/INSTALL.md) file for more detailed instructions on how to build and install libhdbpp.
+See the [INSTALL.md](https://github.com/tango-controls-hdbpp/libhdbpp/blob/master/INSTALL.md) file for more detailed instructions on how to build and install libhdbpp.
 
 ## License
 
