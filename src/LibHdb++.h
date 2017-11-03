@@ -1,16 +1,25 @@
-//=============================================================================
-//
- // file :        LibHdb++.h
-//
-// description : Include for the LibHdb library.
-//
-// Author: Graziano Scalamera
-//
-//
-//=============================================================================
+/* Copyright (C) 2014-2017
+   Elettra - Sincrotrone Trieste S.C.p.A.
+   Strada Statale 14 - km 163,5 in AREA Science Park
+   34149 Basovizza, Trieste, Italy.
 
-#ifndef _LIB_HDB_H
-#define _LIB_HDB_H
+   This file is part of libhdb++.
+
+   libhdb++ is free software: you can redistribute it and/or modify
+   it under the terms of the Lesser GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   libhdb++ is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the Lesser
+   GNU General Public License for more details.
+
+   You should have received a copy of the Lesser GNU General Public License
+   along with libhdb++.  If not, see <http://www.gnu.org/licenses/>. */
+
+#ifndef _HDBPP_H
+#define _HDBPP_H
 
 #include <tango.h>
 #include <vector>
@@ -117,5 +126,4 @@ extern "C"
     DBFactory *getDBFactory();
 }
 
-
-#endif
+#endif // _HDBPP_H
