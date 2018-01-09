@@ -41,8 +41,8 @@ Using the above CMake flags above it´s possible to use tango and other librarie
 Note: to pass multiple paths (i.e. a string list to cmake), either an escaped semi colon must be used, or the list must be enclosed in quotes. Examples: 
 
 * `-DCMAKE_INCLUDE_PATH=/here/there\;/some/where/else`
-* `"-DCMAKE_INCLUDE_PATH=/here/there;/some/where/else"`
-* `'-DCMAKE_INCLUDE_PATH=/here/tehre;/some/where/else'`
+* `-DCMAKE_INCLUDE_PATH="/here/there;/some/where/else"`
+* `-DCMAKE_INCLUDE_PATH='/here/tehre;/some/where/else'`
 
 ## Building
 
