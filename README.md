@@ -34,6 +34,18 @@ make
 make install
 ```
 
+### pkg-config Settings
+
+The build system uses pkg-config to find some dependencies, for example Tango. If Tango is not installed to a standard location, set PKG_CONFIG_PATH, i.e.
+
+```bash
+export PKG_CONFIG_PATH=/non/standard/tango/install/location
+cmake ../
+...
+```
+
+CMake is also set to search any paths added to CMAKE_PREFIX_PATH. This can be set and passed into CMake instead.
+
 ### Build Dependencies
 
 Ensure the development version of the dependencies are installed. These are as follows:
@@ -72,24 +84,6 @@ The following is a list of common useful CMake flags and their use:
 | CMAKE_LIBRARY_PATH | Standard CMake flag to add paths to the library search path |
 
 Using the above CMake flags above it´s possible to use tango and other libraries from non-standard locations. Just add all paths to the correct flag.
-
-#### Passing CMake Lists
-
-Note: to pass multiple paths (i.e. a string list to cmake), either an escaped semi colon must be used, or the list must be enclosed in quotes. Examples: 
-
-* `-DCMAKE_INCLUDE_PATH=/here/there\;/some/where/else`
-* `-DCMAKE_INCLUDE_PATH="/here/there;/some/where/else"`
-* `-DCMAKE_INCLUDE_PATH='/here/tehre;/some/where/else'`
-
-## Building
-
-### Building Against Tango Controls 9.2.5a
-
-The debian package and source install place the headers under /usr/include/tango, yet the code includes tango via `#include <tango.h>` (to be compatible with Tango Controls 10 when it is released), so it´s likely you will need to pass at least one path via CMAKE_INCLUDE_PATH. In this case, set CMAKE_INCLUDE_PATH=/usr/include/tango or CMAKE_INCLUDE_PATH=/usr/local/include/tango, depending on your install method. Example:
-
-```bash
-cmake -DCMAKE_INCLUDE_PATH=/usr/include/tango ..
-```
 
 ## License
 
