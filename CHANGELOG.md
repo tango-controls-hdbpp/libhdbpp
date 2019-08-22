@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+* Header only target in build system
+* Clang integration
+* New cmake files to find Tango
+
+### Changed
+
+* Code refactor:
+  * Header install path is hdb++ (this is a generic path that other projects will use)
+  * Split single source/header into client/backend headers.
+  * Updated build system (multiple project integration work)
+  * Modernize c++ code.
+  * Observe namespaces in headers
+  * Added code to hdbpp namespace
+  * Pass by reference for performance where possible without changing API
+* Combined README and INSTALL files
+
+### Removed
+
+* Some unused functions.
+* HdbClientData class, this should be in the Event Subscriber
+
 ## [1.0.0] - 2017-09-13
 
 ### Added
