@@ -28,7 +28,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(ENABLE_CLANG "Enable clang code and layout analysis" ON)
+option(ENABLE_CLANG "Enable clang code and layout analysis" OFF)
 
 # arch install definitions
 include(GNUInstallDirs)
