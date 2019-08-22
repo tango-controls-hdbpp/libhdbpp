@@ -107,6 +107,7 @@ target_include_directories(libhdbpp_shared_library
         $<INSTALL_INTERFACE:include>
     PRIVATE
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+        ${INCLUDE_PATHS}
         "${PROJECT_BINARY_DIR}")
 
 set_target_properties(libhdbpp_shared_library 
