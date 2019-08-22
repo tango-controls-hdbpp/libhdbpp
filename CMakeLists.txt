@@ -21,6 +21,11 @@ set(VERSION_PATCH "0")
 set(VERSION_METADATA "")
 set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
+# Add any include paths from the command line
+list(APPEND INCLUDE_PATHS ${CMAKE_INCLUDE_PATH})
+list(APPEND INCLUDE_PATHS ${CMAKE_SOURCE_DIR})
+list(APPEND LIBRARY_PATHS ${CMAKE_LIBRARY_PATH})
+
 # Start the project
 project(libhdbpp VERSION ${VERSION_STRING} LANGUAGES CXX)
 
@@ -111,7 +116,7 @@ set_target_properties(libhdbpp_shared_library
         CXX_STANDARD 11
         POSITION_INDEPENDENT_CODE 1
         VERSION ${VERSION_STRING}
-        SOVERSION ${VERSION_STRING})
+        SOVERSION ${VERSION_MAJOR})
 
 target_compile_options(libhdbpp_shared_library 
     PRIVATE "$<$<CONFIG:DEBUG>:-g>")
