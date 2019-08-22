@@ -73,7 +73,7 @@ public:
 
 extern "C"
 {
-	typedef DBFactory * getDBFactory_t();
+	typedef DBFactory *getDBFactory_t();
     DBFactory *getDBFactory();
 }
 

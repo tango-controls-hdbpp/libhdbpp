@@ -60,7 +60,12 @@ HdbClient::HdbClient(vector<string> configuration)
 
 	if ((hLib = dlopen(libname.c_str(), RTLD_NOW/*|RTLD_GLOBAL*/)) != nullptr)
 	{
-		if (auto create_factory = (getDBFactory_t*)dlsym(hLib, "getDBFactory"))
+        // cant find a good way to do this within guidelines, so for now we add
+        // this special ignore case
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
+        auto create_factory = (getDBFactory_t*)dlsym(hLib, "getDBFactory");
+
+		if (create_factory != nullptr)
 		{
 			db_factory = create_factory();
 			db = db_factory->create_db(configuration);
