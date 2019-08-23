@@ -7,7 +7,7 @@ if ( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
 endif()
 
 # Start Build Config -----------------------------------
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.6)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_COLOR_MAKEFILE ON)
 
@@ -164,3 +164,5 @@ install(
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
     PATTERN *.h)
+
+message(STATUS "Configured libhdbpp project")

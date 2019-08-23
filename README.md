@@ -58,7 +58,7 @@ If they have not been installed to a standard location, then use the pkg-config 
 
 If wishing to build the project, ensure the following dependencies are met:
 
-* CMake 3.2 or higher
+* CMake 3.6 or higher
 * C++11 compatible compiler (Tango dependency requires CX11)
 
 ### Project Flags
