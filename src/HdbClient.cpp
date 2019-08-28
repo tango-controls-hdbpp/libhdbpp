@@ -63,9 +63,7 @@ HdbClient::HdbClient(vector<string> configuration)
         // cant find a good way to do this within guidelines, so for now we add
         // this special ignore case
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
-        auto create_factory = (getDBFactory_t*)dlsym(hLib, "getDBFactory");
-
-		if (create_factory != nullptr)
+		if (getDBFactory_t* create_factory = (getDBFactory_t*)dlsym(hLib, "getDBFactory"))
 		{
 			db_factory = create_factory();
 			db = db_factory->create_db(configuration);

@@ -71,11 +71,12 @@ public:
 	virtual ~DBFactory(){};
 };
 
+} // namespace hdbpp
+
 extern "C"
 {
-	typedef DBFactory *getDBFactory_t();
-    DBFactory *getDBFactory();
+	typedef hdbpp::DBFactory* getDBFactory_t();
+    hdbpp::DBFactory *getDBFactory();
 }
 
-} // namespace hdbpp
 #endif // _HDBPP_ABSTRACTDB_H
