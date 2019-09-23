@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.0] - 2019-09-23
+
 ### Added
 
 * Header only target in build system
 * Clang integration
-* New cmake files to find Tango
+* New CMake files to find Tango
 
 ### Changed
 
