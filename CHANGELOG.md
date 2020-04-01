@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   * Added code to hdbpp namespace
   * Pass by reference for performance where possible without changing API
 * Combined README and INSTALL files
+* Removed TTL from add attribute function.
 
 ### Removed
 

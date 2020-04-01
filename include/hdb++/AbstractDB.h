@@ -83,7 +83,7 @@ public:
 
     // Add an attribute to the database. Trying to add an attribute that already exists will
     // cause an exception
-	virtual void add_attribute(const std::string &name, int type, int format, int write_type, unsigned int ttl) = 0;
+	virtual void add_attribute(const std::string &name, int type, int format, int write_type) = 0;
 
     // Update the attribute ttl. The attribute must have been configured to be stored in
     // HDB++, otherwise an exception is raised

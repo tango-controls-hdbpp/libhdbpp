@@ -120,9 +120,9 @@ void HdbClient::insert_param_event(Tango::AttrConfEventData *data, const HdbEven
 
 //=============================================================================
 //=============================================================================
-void HdbClient::add_attribute(const string &name, int type, int format, int write_type, unsigned int ttl)
+void HdbClient::add_attribute(const string &name, int type, int format, int write_type)
 {
-	db->add_attribute(name, type, format, write_type, ttl);
+	db->add_attribute(name, type, format, write_type);
 }
 
 //=============================================================================
