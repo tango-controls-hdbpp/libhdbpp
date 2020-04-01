@@ -28,7 +28,7 @@ namespace hdbpp
 
 //=============================================================================
 //=============================================================================
-void string_vector2map(vector<string> &config, const string &separator, map<string, string> &results)
+void string_vector2map(const vector<string> &config, const string &separator, map<string, string> &results)
 {
 	for (auto &item : config)
 	{
@@ -42,7 +42,7 @@ void string_vector2map(vector<string> &config, const string &separator, map<stri
 
 //=============================================================================
 //=============================================================================
-HdbClient::HdbClient(vector<string> configuration)
+HdbClient::HdbClient(const string &id, const vector<string> &configuration)
 {
 	map<string,string> db_conf;
 	string_vector2map(configuration, "=", db_conf);
@@ -66,7 +66,7 @@ HdbClient::HdbClient(vector<string> configuration)
 		if (getDBFactory_t* create_factory = (getDBFactory_t*)dlsym(hLib, "getDBFactory"))
 		{
 			db_factory = create_factory();
-			db = db_factory->create_db(configuration);
+			db = db_factory->create_db(id, configuration);
 
 			if (db == nullptr)
 			{
@@ -99,36 +99,51 @@ HdbClient::~HdbClient()
 
 //=============================================================================
 //=============================================================================
-void HdbClient::insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type)
+void HdbClient::insert_event(Tango::EventData *event, const HdbEventDataType &data_type)
 {
-	db->insert_Attr(data, std::move(ev_data_type));
+	db->insert_event(event, data_type);
 }
 
 //=============================================================================
 //=============================================================================
-void HdbClient::insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type)
+void HdbClient::insert_events(vector<tuple<Tango::EventData*, HdbEventDataType>> events)
 {
-	db->insert_param_Attr(data, std::move(ev_data_type));
+	db->insert_events(events);
 }
 
 //=============================================================================
 //=============================================================================
-void HdbClient::configure_Attr(string name, int type, int format, int write_type, unsigned int ttl)
+void HdbClient::insert_param_event(Tango::AttrConfEventData *data, const HdbEventDataType &data_type)
 {
-	db->configure_Attr(std::move(name), type, format, write_type, ttl);
+	db->insert_param_event(data, data_type);
 }
 
 //=============================================================================
 //=============================================================================
-void HdbClient::updateTTL_Attr(string name, unsigned int ttl)
+void HdbClient::add_attribute(const string &name, int type, int format, int write_type, unsigned int ttl)
 {
-	db->updateTTL_Attr(std::move(name), ttl);
+	db->add_attribute(name, type, format, write_type, ttl);
 }
 
 //=============================================================================
 //=============================================================================
-void HdbClient::event_Attr(string name, unsigned char event)
+void HdbClient::update_ttl(const string &name, unsigned int ttl)
 {
-	db->event_Attr(std::move(name), event);
+	db->update_ttl(name, ttl);
 }
+
+//=============================================================================
+//=============================================================================
+void HdbClient::insert_history_event(const string &name, unsigned char event)
+{
+	db->insert_history_event(move(name), event);
+}
+
+//=============================================================================
+//=============================================================================
+bool HdbClient::supported(HdbppFeatures feature)
+{
+	return db->supported(feature);
+}
+
 } // namespace hdbpp

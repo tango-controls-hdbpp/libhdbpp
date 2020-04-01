@@ -23,6 +23,7 @@
 
 #include <tango.h>
 #include <vector>
+#include <tuple>
 
 namespace hdbpp
 {
@@ -46,6 +47,17 @@ typedef struct HdbEventDataType_
 
 } HdbEventDataType;
 
+enum class HdbppFeatures
+{
+    // Time to live feature. Attributes can be timed out by the database based
+    // on the configured ttl value
+    TTL,
+
+    // Backend supports passing of multiple events and batching them into
+    // the database. This is a performance improvement.
+    BATCH_INSERTS,
+};
+
 // Abstract base class that backends are required to implement when offering
 // a storage backend to the hdb++ system
 class AbstractDB
@@ -54,11 +66,35 @@ public:
 
 	virtual ~AbstractDB() {}
 
-	virtual void insert_Attr(Tango::EventData *data, HdbEventDataType ev_data_type) = 0;
-	virtual void insert_param_Attr(Tango::AttrConfEventData *data, HdbEventDataType ev_data_type) = 0;
-	virtual void configure_Attr(std::string name, int type, int format, int write_type, unsigned int ttl) = 0;
-	virtual void updateTTL_Attr(std::string name, unsigned int ttl) = 0;
-	virtual void event_Attr(std::string name, unsigned char event) = 0;
+    // Inserts an attribute archive event for the EventData into the database. If the attribute
+    // does not exist in the database, then an exception will be raised. If the attr_value
+    // field of the data parameter if empty, then the attribute is in an error state
+    // and the error message will be archived.
+	virtual void insert_event(Tango::EventData *event, const HdbEventDataType &data_type) = 0;
+
+    // Insert multiple attribute archive events. Any attributes that do not exist will
+    // cause an exception. On failure the fall back is to insert events individually
+    virtual void insert_events(std::vector<std::tuple<Tango::EventData*, HdbEventDataType>> events) = 0;
+
+    // Inserts the attribute configuration data (Tango Attribute Configuration event data)
+    // into the database. The attribute must be configured to be stored in HDB++,
+    // otherwise an exception will be thrown.
+	virtual void insert_param_event(Tango::AttrConfEventData *param_event, const HdbEventDataType &data_type) = 0;
+
+    // Add an attribute to the database. Trying to add an attribute that already exists will
+    // cause an exception
+	virtual void add_attribute(const std::string &name, int type, int format, int write_type, unsigned int ttl) = 0;
+
+    // Update the attribute ttl. The attribute must have been configured to be stored in
+    // HDB++, otherwise an exception is raised
+	virtual void update_ttl(const std::string &name, unsigned int ttl) = 0;
+
+    // Inserts a history event for the attribute name passed to the function. The attribute
+    // must have been configured to be stored in HDB++, otherwise an exception is raised.
+	virtual void insert_history_event(const std::string &name, unsigned char event) = 0;
+
+    // Check what hdbpp features this library supports.
+    virtual bool supported(HdbppFeatures feature) = 0;
 };
 
 // Abstract factory class that backend must implement to help create an instance
@@ -67,7 +103,8 @@ class DBFactory
 {
 public:
 
-	virtual AbstractDB* create_db(std::vector<std::string> configuration) = 0;
+    // Create a backend database object, and return it as a pointer
+	virtual AbstractDB* create_db(const string &id, const std::vector<std::string> &configuration) = 0;
 	virtual ~DBFactory(){};
 };
 
