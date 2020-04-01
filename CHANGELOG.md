@@ -7,16 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.0.0] - 2019-09-23
-
 ### Added
 
+* A small features function and enum to check what the backend supports
 * Header only target in build system
 * Clang integration
 * New CMake files to find Tango
 
 ### Changed
 
+* Renamed API to suit actual functionality
 * Code refactor:
   * Header install path is hdb++ (this is a generic path that other projects will use)
   * Split single source/header into client/backend headers.
