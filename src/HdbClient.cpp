@@ -136,7 +136,7 @@ void HdbClient::update_ttl(const string &name, unsigned int ttl)
 //=============================================================================
 void HdbClient::insert_history_event(const string &name, unsigned char event)
 {
-    db->insert_history_event(move(name), event);
+    db->insert_history_event(name, event);
 }
 
 //=============================================================================
