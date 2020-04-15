@@ -34,6 +34,7 @@ namespace hdbpp
 #define DB_INSERT_PARAM 4
 #define DB_PAUSE 5
 #define DB_UPDATETTL 6
+#define DB_ADD 7
 
 // Data struct used to pass information to the backend
 typedef struct HdbEventDataType_
