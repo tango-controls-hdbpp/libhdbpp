@@ -33,6 +33,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Some unused functions.
 * HdbClientData class, this should be in the Event Subscriber
 
+## [1.0.1] - 2019-09-23
+
+### Changed
+
+* Minor document updates
+
 ## [1.0.0] - 2017-09-13
 
 ### Added
