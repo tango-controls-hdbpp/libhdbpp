@@ -92,7 +92,10 @@ set(LIBHDBPP_SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/HdbClient.cpp)
 add_library(libhdbpp_headers INTERFACE)
 
 target_include_directories(libhdbpp_headers 
-    INTERFACE ${PROJECT_SOURCE_DIR}/include)
+    INTERFACE
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+    )
 
 # Shared library --------
 add_library(libhdbpp_shared_library SHARED ${LIBHDBPP_SRC_FILES})
@@ -128,6 +131,14 @@ if(DO_CLANG_TIDY)
             CXX_CLANG_TIDY ${DO_CLANG_TIDY})
 endif(DO_CLANG_TIDY)
 
+# Install Config -----------------------------------
+install(
+    TARGETS libhdbpp_shared_library
+    EXPORT library_targets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
 # Static library --------
 add_library(libhdbpp_static_library STATIC EXCLUDE_FROM_ALL ${LIBHDBPP_SRC_FILES})
 
@@ -152,17 +163,58 @@ set_target_properties(libhdbpp_static_library
 target_compile_options(libhdbpp_static_library 
     PRIVATE "$<$<CONFIG:DEBUG>:-g>")
 
-# Install Config -----------------------------------
-install(
-    TARGETS libhdbpp_shared_library
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
 install(
     DIRECTORY ${PROJECT_SOURCE_DIR}/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
     PATTERN *.h)
+# install and export the library
+
+install(TARGETS
+    libhdbpp_headers
+  EXPORT libhdbppTargets
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+include(CMakePackageConfigHelpers)
+
+
+set(ConfigPackageLocation lib/cmake/libhdbpp)
+set(Namespace libhdbpp::)
+
+write_basic_package_version_file(
+  "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfigVersion.cmake"
+  VERSION ${VERSION_STRING}
+  COMPATIBILITY AnyNewerVersion
+)
+
+export(EXPORT libhdbppTargets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppTargets.cmake"
+  NAMESPACE ${Namespace}
+)
+
+configure_file(cmake/libhdbppConfig.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfig.cmake"
+)
+
+install(EXPORT libhdbppTargets
+  FILE
+    libhdbppTargets.cmake
+  NAMESPACE
+    ${Namespace}
+  DESTINATION
+    ${ConfigPackageLocation}
+)
+
+install(
+  FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfigVersion.cmake"
+  DESTINATION
+    ${ConfigPackageLocation}
+) 
 
 message(STATUS "Configured libhdbpp project")

@@ -19,7 +19,7 @@
    along with libhdb++.  If not, see <http://www.gnu.org/licenses/>. */
 
 #include <dlfcn.h>
-#include <hdb++/HdbClient.h>
+#include "HdbClient.h"
 
 using namespace std;
 
