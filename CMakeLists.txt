@@ -198,6 +198,7 @@ export(EXPORT libhdbppTargets
 
 configure_file(cmake/libhdbppConfig.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfig.cmake"
+  COPYONLY
 )
 
 install(EXPORT libhdbppTargets
