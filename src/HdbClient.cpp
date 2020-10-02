@@ -23,6 +23,14 @@
 
 using namespace std;
 
+//=============================================================================
+//=============================================================================
+hdbpp::DBFactory *getDBFactory()
+{
+    auto *factory = new hdbpp::HdbDBFactory();
+    return static_cast<hdbpp::DBFactory *>(factory);
+}
+
 namespace hdbpp
 {
 //=============================================================================
@@ -43,14 +51,6 @@ void string_vector2map(const vector<string> &config, const string &separator, ma
 auto HdbDBFactory::create_db(const string &id, const std::vector<std::string> &configuration) -> AbstractDB*
 {
     return new HdbClient(id, configuration);
-}
-
-//=============================================================================
-//=============================================================================
-DBFactory *getDBFactory()
-{
-    auto *factory = new HdbDBFactory();
-    return static_cast<DBFactory *>(factory);
 }
 
 HdbClient::HdbClient(const string &id, const std::vector<std::string> &configuration)
