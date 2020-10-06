@@ -142,14 +142,6 @@ if(DO_CLANG_TIDY)
             CXX_CLANG_TIDY ${DO_CLANG_TIDY})
 endif(DO_CLANG_TIDY)
 
-# Install Config -----------------------------------
-install(
-    TARGETS ${BACKEND_TARGET_SHARED}
-    EXPORT library_targets
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
 # Static library --------
 add_library(${BACKEND_TARGET_STATIC} STATIC EXCLUDE_FROM_ALL ${LIBHDBPP_SRC_FILES})
 
@@ -179,10 +171,12 @@ install(
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
     PATTERN *.h)
+
 # install and export the library
 
 install(TARGETS
     libhdbpp_headers
+    ${BACKEND_TARGET_SHARED}
   EXPORT libhdbppTargets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -207,9 +201,12 @@ export(EXPORT libhdbppTargets
   NAMESPACE ${Namespace}
 )
 
-configure_file(cmake/libhdbppConfig.cmake.in
+configure_package_config_file(cmake/libhdbppConfig.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfig.cmake"
-  COPYONLY
+  INSTALL_DESTINATION
+  ${ConfigPackageLocation}
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
 )
 
 install(EXPORT libhdbppTargets
