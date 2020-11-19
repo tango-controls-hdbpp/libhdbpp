@@ -72,7 +72,7 @@ if(NOT libhdbpp_FOUND)
     FetchContent_Declare(
       libhdbpp
       GIT_REPOSITORY https://github.com/tango-controls-hdbpp/libhdbpp.git
-      GIT_TAG        project-build
+      GIT_TAG        master
     )
 
     FetchContent_GetProperties(libhdbpp)
