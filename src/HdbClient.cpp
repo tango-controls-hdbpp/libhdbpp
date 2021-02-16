@@ -19,9 +19,17 @@
    along with libhdb++.  If not, see <http://www.gnu.org/licenses/>. */
 
 #include <dlfcn.h>
-#include <hdb++/HdbClient.h>
+#include "HdbClient.h"
 
 using namespace std;
+
+//=============================================================================
+//=============================================================================
+hdbpp::DBFactory *getDBFactory()
+{
+    auto *factory = new hdbpp::HdbDBFactory();
+    return static_cast<hdbpp::DBFactory *>(factory);
+}
 
 namespace hdbpp
 {
@@ -29,10 +37,9 @@ namespace hdbpp
 //=============================================================================
 void string_vector2map(const vector<string> &config, const string &separator, map<string, string> &results)
 {
-    for (auto &item : config)
+    for (const auto &item : config)
     {
-        string::size_type found_eq;
-        found_eq = item.find_first_of(separator);
+        auto found_eq = item.find_first_of(separator);
 
         if (found_eq != string::npos && found_eq > 0)
             results.insert(make_pair(item.substr(0, found_eq), item.substr(found_eq + 1)));
@@ -41,7 +48,12 @@ void string_vector2map(const vector<string> &config, const string &separator, ma
 
 //=============================================================================
 //=============================================================================
-HdbClient::HdbClient(const string &id, const vector<string> &configuration)
+auto HdbDBFactory::create_db(const string &id, const std::vector<std::string> &configuration) -> AbstractDB*
+{
+    return new HdbClient(id, configuration);
+}
+
+HdbClient::HdbClient(const string &id, const std::vector<std::string> &configuration)
 {
     map<string, string> db_conf;
     string_vector2map(configuration, "=", db_conf);

@@ -75,5 +75,13 @@ public:
     bool supported(HdbppFeatures feature) override;
 };
 
+class HdbDBFactory : public DBFactory
+{
+    public:
+        // Create a backend database object, and return it as a pointer
+        AbstractDB *create_db(const string &id, const std::vector<std::string> &configuration);
+        ~HdbDBFactory() = default;
+};
+
 } // namespace hdbpp
 #endif // _HDBPP_HDB_CLIENT_H

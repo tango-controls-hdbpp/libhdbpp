@@ -80,6 +80,17 @@ if(ENABLE_CLANG)
     endif(NOT CLANG_TIDY_EXE)
 endif(ENABLE_CLANG)
 
+# Export target name for subdirectory build
+get_directory_property(hasParent PARENT_DIRECTORY)
+if(hasParent)
+    set(BACKEND_TARGET_SHARED "libhdbpp_shared_library"
+        PARENT_SCOPE)
+    set(BACKEND_TARGET_STATIC "libhdbpp_static_library"
+        PARENT_SCOPE)
+endif(hasParent)
+set(BACKEND_TARGET_SHARED "libhdbpp_shared_library")
+set(BACKEND_TARGET_STATIC "libhdbpp_static_library")
+
 # Source -----------------------------------
 
 # Create a list of the source files for this build to be given to
@@ -92,16 +103,19 @@ set(LIBHDBPP_SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/HdbClient.cpp)
 add_library(libhdbpp_headers INTERFACE)
 
 target_include_directories(libhdbpp_headers 
-    INTERFACE ${PROJECT_SOURCE_DIR}/include)
+    INTERFACE
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+    )
 
 # Shared library --------
-add_library(libhdbpp_shared_library SHARED ${LIBHDBPP_SRC_FILES})
+add_library(${BACKEND_TARGET_SHARED} SHARED ${LIBHDBPP_SRC_FILES})
 
-target_link_libraries(libhdbpp_shared_library 
+target_link_libraries(${BACKEND_TARGET_SHARED} 
     PUBLIC ${HDBPP_FOUND_LIBRARIES} 
     PRIVATE TangoInterfaceLibrary)
 
-target_include_directories(libhdbpp_shared_library 
+target_include_directories(${BACKEND_TARGET_SHARED} 
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
@@ -110,7 +124,7 @@ target_include_directories(libhdbpp_shared_library
         ${INCLUDE_PATHS}
         "${PROJECT_BINARY_DIR}")
 
-set_target_properties(libhdbpp_shared_library 
+set_target_properties(${BACKEND_TARGET_SHARED} 
     PROPERTIES 
         OUTPUT_NAME hdb++
         LINK_FLAGS "-Wl,--no-undefined"
@@ -119,50 +133,97 @@ set_target_properties(libhdbpp_shared_library
         VERSION ${VERSION_STRING}
         SOVERSION ${VERSION_MAJOR})
 
-target_compile_options(libhdbpp_shared_library 
+target_compile_options(${BACKEND_TARGET_SHARED} 
     PRIVATE "$<$<CONFIG:DEBUG>:-g>")
 
 if(DO_CLANG_TIDY)
-    set_target_properties(libhdbpp_shared_library 
+    set_target_properties(${BACKEND_TARGET_SHARED} 
         PROPERTIES 
             CXX_CLANG_TIDY ${DO_CLANG_TIDY})
 endif(DO_CLANG_TIDY)
 
 # Static library --------
-add_library(libhdbpp_static_library STATIC EXCLUDE_FROM_ALL ${LIBHDBPP_SRC_FILES})
+add_library(${BACKEND_TARGET_STATIC} STATIC EXCLUDE_FROM_ALL ${LIBHDBPP_SRC_FILES})
 
-target_include_directories(libhdbpp_static_library 
+target_include_directories(${BACKEND_TARGET_STATIC} 
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     PRIVATE
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
         "${PROJECT_BINARY_DIR}")
 
-target_link_libraries(libhdbpp_static_library 
+target_link_libraries(${BACKEND_TARGET_STATIC} 
     PUBLIC ${HDBPP_FOUND_LIBRARIES} 
     PRIVATE TangoInterfaceLibrary)
 
-set_target_properties(libhdbpp_static_library 
+set_target_properties(${BACKEND_TARGET_STATIC} 
     PROPERTIES 
         OUTPUT_NAME hdb++
         LINK_FLAGS "-Wl,--no-undefined"
         CXX_STANDARD 11
         EXCLUDE_FROM_ALL 1)
 
-target_compile_options(libhdbpp_static_library 
+target_compile_options(${BACKEND_TARGET_STATIC} 
     PRIVATE "$<$<CONFIG:DEBUG>:-g>")
-
-# Install Config -----------------------------------
-install(
-    TARGETS libhdbpp_shared_library
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 install(
     DIRECTORY ${PROJECT_SOURCE_DIR}/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
     PATTERN *.h)
+
+# install and export the library
+
+install(TARGETS
+    libhdbpp_headers
+    ${BACKEND_TARGET_SHARED}
+  EXPORT libhdbppTargets
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+include(CMakePackageConfigHelpers)
+
+
+set(ConfigPackageLocation lib/cmake/libhdbpp)
+set(Namespace libhdbpp::)
+
+write_basic_package_version_file(
+  "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfigVersion.cmake"
+  VERSION ${VERSION_STRING}
+  COMPATIBILITY AnyNewerVersion
+)
+
+export(EXPORT libhdbppTargets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppTargets.cmake"
+  NAMESPACE ${Namespace}
+)
+
+configure_package_config_file(cmake/libhdbppConfig.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfig.cmake"
+  INSTALL_DESTINATION
+  ${ConfigPackageLocation}
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
+)
+
+install(EXPORT libhdbppTargets
+  FILE
+    libhdbppTargets.cmake
+  NAMESPACE
+    ${Namespace}
+  DESTINATION
+    ${ConfigPackageLocation}
+)
+
+install(
+  FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/libhdbpp/libhdbppConfigVersion.cmake"
+  DESTINATION
+    ${ConfigPackageLocation}
+) 
 
 message(STATUS "Configured libhdbpp project")
